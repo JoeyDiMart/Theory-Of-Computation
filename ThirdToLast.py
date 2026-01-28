@@ -7,24 +7,27 @@ third to last position
 
 
 def isAccepted(s):
-    ending_sequence = []
+    #states = ['0', '1', '10', '11', '100', '101', '110', '111']
+    accepted_endings = ['100', '101', '110', '111']  # matches the 4 final states
+    transitions = {  # all 8 states + the location it'll go to if a 1 or a 0
+        '0': {'0': '0', '1': '1'},
+        '1': {'0': '10', '1': '11'},
+        '10': {'0': '100', '1': '101'},
+        '11': {'0': '110', '1': '111'},
+        '100': {'0': '0', '1': '1'},
+        '101': {'0': '10', '1': '11'},
+        '110': {'0': '100', '1': '101'},
+        '111': {'0': '110', '1': '111'}
+    }
+    current_state = '0'  # start at 0
+
     for i in s:
-        if len(ending_sequence) != 3:
-            ending_sequence += i
-            continue
+        if i not in ['0', '1']:
+            return "Not valid input"
+        current_state = transitions[current_state][i]
 
-        ending_sequence[0] = ending_sequence[1]
-        ending_sequence[1] = ending_sequence[2]
-        ending_sequence[2] = i
-    print(ending_sequence)
-
-    # the below can just be ending_sequence[0] = "1" but I wanted to match the diagram from the book
-    if (ending_sequence == ["1", "0", "0"] or ending_sequence == ["1", "0", "1"] or ending_sequence == ["1", "1", "0"]
-            or ending_sequence == ["1", "1", "1"]):
-        return "Accepted"
-    else:
-        return "Not Accepted"
+    return current_state in accepted_endings
 
 
-s = input("enter a binary string: ")
+s = input("enter a binary string: ").strip()
 print(isAccepted(s))
