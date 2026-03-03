@@ -5,13 +5,12 @@ Create A python program to model a Pushdown Automata that only accepts strings o
 stack = []
 
 input = input("enter a string: ")
-length = len(input)
 stack.append(0)
 
-for i in range(0, length):
-    if stack:  # if something in stack pop
+for i, j in enumerate(input):
+    if stack:
         stack.pop()
-    else:  # if nothing in stack append something
+    else:
         stack.append(0)
 
 if not stack:
