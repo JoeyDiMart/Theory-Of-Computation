@@ -2,10 +2,9 @@
 Create A python program to model a Pushdown Automata that only accepts strings of off lengths (rejects even lengths)
 '''
 
-stack = []
+stack = [0]
 
 input = input("enter a string: ")
-stack.append(0)
 
 for i, j in enumerate(input):
     if stack:
